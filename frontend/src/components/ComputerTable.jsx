@@ -1,55 +1,36 @@
-function ComputerForm({ form, setForm, onSubmit, buttonText }) {
-  function updateField(event) {
-    const { name, value } = event.target;
-
-    setForm({
-      ...form,
-      [name]: name === 'Memory' || name === 'HardDrive' ? Number(value) : value
-    });
+function ComputerTable({ computers }) {
+  if (!computers.length) {
+    return <p>No computers found.</p>;
   }
 
   return (
-    <form onSubmit={onSubmit} className="card card-body">
-      <div className="mb-3">
-        <label className="form-label">Brand</label>
-        <input name="Brand" className="form-control" value={form.Brand} onChange={updateField} required />
-      </div>
-
-      <div className="mb-3">
-        <label className="form-label">Model</label>
-        <input name="Model" className="form-control" value={form.Model} onChange={updateField} required />
-      </div>
-
-      <div className="mb-3">
-        <label className="form-label">Memory</label>
-        <input name="Memory" type="number" className="form-control" value={form.Memory} onChange={updateField} required />
-      </div>
-
-      <div className="mb-3">
-        <label className="form-label">Hard Drive</label>
-        <input name="HardDrive" type="number" className="form-control" value={form.HardDrive} onChange={updateField} required />
-      </div>
-
-      <div className="mb-3">
-        <label className="form-label">Type</label>
-        <select name="type" className="form-select" value={form.type} onChange={updateField} required>
-          <option value="laptop">laptop</option>
-          <option value="desktop">desktop</option>
-        </select>
-      </div>
-
-      <div className="mb-3">
-        <label className="form-label">Processor</label>
-        <select name="processor" className="form-select" value={form.processor} onChange={updateField} required>
-          <option value="Intel">Intel</option>
-          <option value="AMD">AMD</option>
-          <option value="Mx">Mx</option>
-        </select>
-      </div>
-
-      <button className="btn btn-primary" type="submit">{buttonText}</button>
-    </form>
+    <table className="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Brand</th>
+          <th>Model</th>
+          <th>Memory</th>
+          <th>Hard Drive</th>
+          <th>Type</th>
+          <th>Processor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {computers.map((computer) => (
+          <tr key={computer._id}>
+            <td>{computer._id}</td>
+            <td>{computer.Brand}</td>
+            <td>{computer.Model}</td>
+            <td>{computer.Memory}</td>
+            <td>{computer.HardDrive}</td>
+            <td>{computer.type}</td>
+            <td>{computer.processor}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
-export default ComputerForm;
+export default ComputerTable;
